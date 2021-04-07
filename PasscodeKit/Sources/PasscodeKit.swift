@@ -32,28 +32,28 @@ public class PasscodeKit: NSObject {
 		return instance
 	}()
 
-	static var passcodeLength			= 4
-	static var allowedFailedAttempts	= 3
+	public static var passcodeLength			= 4
+	public static var allowedFailedAttempts		= 3
 
-	static var textColor				= UIColor.darkText
-	static var backgroundColor			= UIColor.lightGray
+	public static var textColor					= UIColor.darkText
+	public static var backgroundColor			= UIColor.lightGray
 
-	static var failedTextColor			= UIColor.white
-	static var failedBackgroundColor	= UIColor.systemRed
+	public static var failedTextColor			= UIColor.white
+	public static var failedBackgroundColor		= UIColor.systemRed
 
-	static var titleEnterPasscode		= "Enter Passcode"
-	static var titleCreatePasscode		= "Create Passcode"
-	static var titleChangePasscode		= "Change Passcode"
-	static var titleRemovePasscode		= "Remove Passcode"
+	public static var titleEnterPasscode		= "Enter Passcode"
+	public static var titleCreatePasscode		= "Create Passcode"
+	public static var titleChangePasscode		= "Change Passcode"
+	public static var titleRemovePasscode		= "Remove Passcode"
 
-	static var textEnterPasscode		= "Enter your passcode"
-	static var textVerifyPasscode		= "Verify your passcode"
-	static var textEnterOldPasscode		= "Enter your old passcode"
-	static var textEnterNewPasscode		= "Enter your new passcode"
-	static var textVerifyNewPasscode	= "Verify your new passcode"
-	static var textFailedPasscode		= "%d Failed Passcode Attempts"
-	static var textPasscodeMismatch		= "Passcodes did not match. Try again."
-	static var textTouchIDAccessReason	= "Please use Touch ID to unlock the app"
+	public static var textEnterPasscode			= "Enter your passcode"
+	public static var textVerifyPasscode		= "Verify your passcode"
+	public static var textEnterOldPasscode		= "Enter your old passcode"
+	public static var textEnterNewPasscode		= "Enter your new passcode"
+	public static var textVerifyNewPasscode		= "Verify your new passcode"
+	public static var textFailedPasscode		= "%d Failed Passcode Attempts"
+	public static var textPasscodeMismatch		= "Passcodes did not match. Try again."
+	public static var textTouchIDAccessReason	= "Please use Touch ID to unlock the app"
 
 	public static var delegate: PasscodeKitDelegate?
 
