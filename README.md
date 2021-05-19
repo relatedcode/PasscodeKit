@@ -86,11 +86,11 @@ PasscodeKit.textPasscodeMismatch = "Passcodes did not match. Try again."
 PasscodeKit.textTouchIDAccessReason = "Please use Touch ID to unlock the app"
 ```
 
-<img src="https://related.chat/passcodekit/03x.png" width="880">
-
 ## CONFIGURATION
 
 PasscodeKit supports both TouchID and FaceID. If you're using FaceID, be sure to add the `NSFaceIDUsageDescription` details into your Info.plist file.
+
+<img src="https://related.chat/passcodekit/03x.png" width="880">
 
 ## LICENSE
 
