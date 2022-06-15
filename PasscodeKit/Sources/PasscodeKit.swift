@@ -268,8 +268,16 @@ class PasscodeKitNavController: UINavigationController {
 			self.isModalInPresentation = true
 			self.modalPresentationStyle = .fullScreen
 		}
-
-		navigationBar.isTranslucent = false
+        
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            UINavigationBar.appearance().compactAppearance = appearance
+        } else {
+            navigationBar.isTranslucent = false
+        }
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
