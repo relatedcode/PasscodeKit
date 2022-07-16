@@ -22,6 +22,8 @@ import CryptoKit
 	@objc optional func passcodeCheckedButDisabled()
 	@objc optional func passcodeEnteredSuccessfully()
 	@objc optional func passcodeMaximumFailedAttempts()
+    
+    @objc optional func passcodeIntervalChanged()
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -152,10 +154,10 @@ extension PasscodeKit {
 		var result = true
 		if let navigationController = viewController as? UINavigationController {
 			if let presentedView = navigationController.viewControllers.first {
-				if (presentedView is PasscodeKitCreate)	{ result = false }
-				if (presentedView is PasscodeKitChange)	{ result = false }
-				if (presentedView is PasscodeKitRemove)	{ result = false }
-				if (presentedView is PasscodeKitVerify)	{ result = false }
+				if (presentedView is PasscodeKitCreate)	  { result = false }
+				if (presentedView is PasscodeKitChange)	  { result = false }
+				if (presentedView is PasscodeKitRemove)	  { result = false }
+				if (presentedView is PasscodeKitVerify)	  { result = false }
 			}
 		}
 		return result
@@ -209,6 +211,14 @@ extension PasscodeKit {
 		let navController = PasscodeKitNavController(rootViewController: passcodeKitRemove)
 		viewController.present(navController, animated: true)
 	}
+    
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+    public class func changeInterval(_ viewController: UINavigationController) {
+
+        let passcodeKitInterval = PasscodeKitInterval()
+        passcodeKitInterval.delegate = viewController as? PasscodeKitDelegate
+        viewController.pushViewController(passcodeKitInterval, animated: true)
+    }
 }
 
 // MARK: - Passcode methods

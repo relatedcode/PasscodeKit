@@ -61,9 +61,7 @@ class PasscodeView: UIViewController {
     func actionChangeInterval() {
 
         if (PasscodeKit.enabled()) {
-            
-            let intervalViewController = IntervalViewController()
-            navigationController?.pushViewController(intervalViewController, animated: true)
+            PasscodeKit.changeInterval(self.navigationController!)
         }
     }
 

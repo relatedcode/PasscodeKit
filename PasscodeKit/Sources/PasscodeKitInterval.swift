@@ -1,17 +1,39 @@
 //
-//  IntervalViewController.swift
-//  Example
+//  PasscodeInterval.swift
+//  app
 //
-//  Created by StephenFang on 2022/7/8.
+//  Created by StephenFang on 2022/7/16.
 //  Copyright © 2022 KZ. All rights reserved.
 //
 
 import UIKit
 
-class IntervalViewController: UIViewController {
+enum PasscodeInterval: Double, CaseIterable {
+    case immediately  = 0.0
+    case oneMinute    = 1.0
+    case fiveMinutes  = 5.0
+    case tenMinutes   = 10.0
+    case halfAnHour   = 30.0
+    case anHour       = 60.0
+    
+    var localizedDescription: String {
+        if self == .immediately {
+            return PasscodeKit.vefifyPasscodeImmediately
+        } else if self == .anHour {
+            return PasscodeKit.vefifyPasscodeAfterOneHour
+        } else {
+            return String(format: PasscodeKit.vefifyPasscodeAfterMinutes, rawValue)
+        }
+    }
+}
+
+class PasscodeKitInterval: UIViewController {
     
     fileprivate let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    fileprivate var selectedRow = 0
+    
+    private var selectedRow = 0
+    
+    var delegate: PasscodeKitDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +59,7 @@ class IntervalViewController: UIViewController {
     }
 }
 
-extension IntervalViewController: UITableViewDataSource {
+extension PasscodeKitInterval: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return PasscodeInterval.allCases.count
     }
@@ -55,10 +77,11 @@ extension IntervalViewController: UITableViewDataSource {
     }
 }
 
-extension IntervalViewController: UITableViewDelegate {
+extension PasscodeKitInterval: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         PasscodeKit.passcodeInterval(PasscodeInterval.allCases[indexPath.item].rawValue)
+        delegate?.passcodeIntervalChanged?()
         
         selectedRow = indexPath.row
         tableView.reloadData()
