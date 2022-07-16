@@ -1,14 +1,18 @@
 ## DIFFERENCES
 
 1. Added support for 'Require Passcode'
-   <img src="http://image.stephenfang.me/interval.png" height="300">
-   <img src="http://image.stephenfang.me/newPasscode.png" height="300">
+
+   <img src="http://image.stephenfang.me/interval.png" height="400">
+   <img src="http://image.stephenfang.me/newPasscode.png" height="400">
 
 2. Added UINavigationBarAppearance support for iOS15
-   <img src="http://image.stephenfang.me/navBar.png" height="300">
-   <img src="http://image.stephenfang.me/Xnip2022-06-15_21-22-08.png" height="300">
 
-   Before / After
+   (Before & After)
+
+   <img src="http://image.stephenfang.me/navBar.png" height="400">
+   <img src="http://image.stephenfang.me/passdemo.png" height="400">
+   
+   Also see [PR](https://github.com/relatedcode/PasscodeKit/pull/2) here.
 
 3. Refined localization strings
 
