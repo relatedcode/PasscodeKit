@@ -19,10 +19,10 @@ class PasscodeView: UIViewController {
 	@IBOutlet private var cellTurnPasscode: UITableViewCell!
 	@IBOutlet private var cellChangePasscode: UITableViewCell!
 	@IBOutlet private var cellBiometric: UITableViewCell!
+    @IBOutlet private var cellInterval: UITableViewCell!
+    @IBOutlet private var switchBiometric: UISwitch!
 
-	@IBOutlet private var switchBiometric: UISwitch!
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
 
 		super.viewDidLoad()
@@ -31,7 +31,7 @@ class PasscodeView: UIViewController {
 		switchBiometric.addTarget(self, action: #selector(actionBiometric), for: .valueChanged)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
+
 	override func viewWillAppear(_ animated: Bool) {
 
 		super.viewWillAppear(animated)
@@ -40,7 +40,7 @@ class PasscodeView: UIViewController {
 	}
 
 	// MARK: - User actions
-	//-------------------------------------------------------------------------------------------------------------------------------------------
+
 	func actionTurnPasscode() {
 
 		if (PasscodeKit.enabled()) {
@@ -49,33 +49,41 @@ class PasscodeView: UIViewController {
 			PasscodeKit.createPasscode(self)
 		}
 	}
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
+    
 	func actionChangePasscode() {
 
 		if (PasscodeKit.enabled()) {
 			PasscodeKit.changePasscode(self)
 		}
 	}
+    
+    
+    func actionChangeInterval() {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
+        if (PasscodeKit.enabled()) {
+            PasscodeKit.changeInterval(self.navigationController!)
+        }
+    }
+
 	@objc func actionBiometric() {
-
 		PasscodeKit.biometric(switchBiometric.isOn)
 	}
 
 	// MARK: - Helper methods
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	func updateViewDetails() {
 
+	func updateViewDetails() {
 		if (PasscodeKit.enabled()) {
 			cellTurnPasscode.textLabel?.text = "Turn Passcode Off"
 			cellChangePasscode.textLabel?.textColor = UIColor.systemBlue
+            cellInterval.textLabel?.textColor = UIColor.systemBlue
 		} else {
 			cellTurnPasscode.textLabel?.text = "Turn Passcode On"
 			cellChangePasscode.textLabel?.textColor = UIColor.lightGray
+            cellInterval.textLabel?.textColor = UIColor.lightGray
 		}
-
+        
+        cellInterval.detailTextLabel?.text = PasscodeKit.passcodeLocalizedInterval()
+        
 		switchBiometric.isOn = PasscodeKit.biometric()
 
 		tableView.reloadData()
@@ -83,53 +91,40 @@ class PasscodeView: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+
 extension PasscodeView: UITableViewDataSource {
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func numberOfSections(in tableView: UITableView) -> Int {
-
-		return PasscodeKit.enabled() ? 2 : 1
+		return PasscodeKit.enabled() ? 3 : 1
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
 		if (section == 0) { return 2 }
-		if (section == 1) { return 1 }
-
+        if (section == 1) { return 1 }
+		if (section == 2) { return 1 }
 		return 0
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-
-		if (section == 1) { return "Allow to use Face ID (or Touch ID) to unlock the app." }
-
+        if (section == 2) { return PasscodeKit.textBiometricAccessTip }
 		return nil
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
 		if (indexPath.section == 0) && (indexPath.row == 0) { return cellTurnPasscode	}
 		if (indexPath.section == 0) && (indexPath.row == 1) { return cellChangePasscode	}
-		if (indexPath.section == 1) && (indexPath.row == 0) { return cellBiometric		}
-
+        if (indexPath.section == 1) && (indexPath.row == 0) { return cellInterval    }
+		if (indexPath.section == 2) && (indexPath.row == 0) { return cellBiometric		}
 		return UITableViewCell()
 	}
 }
 
 // MARK: - UITableViewDelegate
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+
 extension PasscodeView: UITableViewDelegate {
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
 		tableView.deselectRow(at: indexPath, animated: true)
-
 		if (indexPath.section == 0) && (indexPath.row == 0) { actionTurnPasscode()		}
 		if (indexPath.section == 0) && (indexPath.row == 1) { actionChangePasscode()	}
+        if (indexPath.section == 1) && (indexPath.row == 0) { actionChangeInterval()    }
 	}
 }

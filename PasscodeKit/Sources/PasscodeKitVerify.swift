@@ -51,7 +51,7 @@ extension PasscodeKitVerify {
 		let context = LAContext()
 
 		if (PasscodeKit.biometric()) && (context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)) {
-			let reason = PasscodeKit.textTouchIDAccessReason
+			let reason = PasscodeKit.textBiometricAccessReason
 			context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, error in
 				DispatchQueue.main.async {
 					self.actionBiometric(success)

@@ -20,6 +20,7 @@
 		29D9780C261DB37700C80DBD /* PasscodeKitRemove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D97806261DB37700C80DBD /* PasscodeKitRemove.swift */; };
 		29D97810261DB39C00C80DBD /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D9780E261DB39C00C80DBD /* PasscodeView.swift */; };
 		29D97811261DB39C00C80DBD /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29D9780F261DB39C00C80DBD /* PasscodeView.xib */; };
+		4D200CB028831D0200C8DF4D /* PasscodeKitInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D200CAF28831D0200C8DF4D /* PasscodeKitInterval.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		29D97806261DB37700C80DBD /* PasscodeKitRemove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeKitRemove.swift; sourceTree = "<group>"; };
 		29D9780E261DB39C00C80DBD /* PasscodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeView.swift; sourceTree = "<group>"; };
 		29D9780F261DB39C00C80DBD /* PasscodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasscodeView.xib; sourceTree = "<group>"; };
+		4D200CAF28831D0200C8DF4D /* PasscodeKitInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeKitInterval.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				29D97806261DB37700C80DBD /* PasscodeKitRemove.swift */,
 				29D97801261DB37700C80DBD /* PasscodeKitText.swift */,
 				29D97803261DB37700C80DBD /* PasscodeKitVerify.swift */,
+				4D200CAF28831D0200C8DF4D /* PasscodeKitInterval.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				29D9780C261DB37700C80DBD /* PasscodeKitRemove.swift in Sources */,
 				29D97807261DB37700C80DBD /* PasscodeKitText.swift in Sources */,
 				29D9780B261DB37700C80DBD /* PasscodeKitChange.swift in Sources */,
+				4D200CB028831D0200C8DF4D /* PasscodeKitInterval.swift in Sources */,
 				29D97808261DB37700C80DBD /* PasscodeKit.swift in Sources */,
 				29D97810261DB39C00C80DBD /* PasscodeView.swift in Sources */,
 				29D9780A261DB37700C80DBD /* PasscodeKitCreate.swift in Sources */,
