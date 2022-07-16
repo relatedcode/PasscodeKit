@@ -294,9 +294,15 @@ extension PasscodeKit {
     }
     
     //-------------------------------------------------------------------------------------------------------------------------------------------
-    public class func verifiedTimeInterval() -> TimeInterval {
+    public class func passcodeLocalizedInterval() -> String {
+        return PasscodeInterval.allCases.first(where: { $0.rawValue == PasscodeKit.passcodeInterval()})?.localizedDescription ?? PasscodeKit.vefifyPasscodeImmediately
+    }
+    
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+    public class func verifiedTimeInterval() -> Double {
         return UserDefaults.standard.double(forKey: "PasscodeVerifiedInterval")
     }
+    
     
     //-------------------------------------------------------------------------------------------------------------------------------------------
     public class func verifiedTimeInterval(_ date: Date) {

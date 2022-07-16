@@ -82,7 +82,7 @@ class PasscodeView: UIViewController {
             cellInterval.textLabel?.textColor = UIColor.lightGray
 		}
         
-        cellInterval.detailTextLabel?.text = PasscodeInterval.allCases.first(where: { $0.rawValue == PasscodeKit.passcodeInterval()})?.localizedDescription
+        cellInterval.detailTextLabel?.text = PasscodeKit.passcodeLocalizedInterval()
         
 		switchBiometric.isOn = PasscodeKit.biometric()
 
