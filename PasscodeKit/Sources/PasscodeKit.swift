@@ -32,29 +32,34 @@ public class PasscodeKit: NSObject {
 		return instance
 	}()
 
-	public static var passcodeLength			= 4
-	public static var allowedFailedAttempts		= 3
+	public static var passcodeLength			 = 4
+	public static var allowedFailedAttempts		 = 3
 
-	public static var textColor					= UIColor.darkText
-	public static var backgroundColor			= UIColor.lightGray
+	public static var textColor					 = UIColor.darkText
+	public static var backgroundColor			 = UIColor.lightGray
 
-	public static var failedTextColor			= UIColor.white
-	public static var failedBackgroundColor		= UIColor.systemRed
+	public static var failedTextColor			 = UIColor.white
+	public static var failedBackgroundColor		 = UIColor.systemRed
 
-	public static var titleEnterPasscode		= "Enter Passcode"
-	public static var titleCreatePasscode		= "Create Passcode"
-	public static var titleChangePasscode		= "Change Passcode"
-	public static var titleRemovePasscode		= "Remove Passcode"
+	public static var titleEnterPasscode		 = "Enter Passcode"
+	public static var titleCreatePasscode		 = "Create Passcode"
+	public static var titleChangePasscode		 = "Change Passcode"
+	public static var titleRemovePasscode		 = "Remove Passcode"
 
-	public static var textEnterPasscode			= "Enter your passcode"
-	public static var textVerifyPasscode		= "Verify your passcode"
-	public static var textEnterOldPasscode		= "Enter your old passcode"
-	public static var textEnterNewPasscode		= "Enter your new passcode"
-	public static var textVerifyNewPasscode		= "Verify your new passcode"
-	public static var textFailedPasscode		= "%d Failed Passcode Attempts"
-	public static var textPasscodeMismatch		= "Passcodes did not match. Try again."
-	public static var textTouchIDAccessReason	= "Please use Touch ID to unlock the app"
+	public static var textEnterPasscode			 = "Enter your passcode"
+	public static var textVerifyPasscode		 = "Verify your passcode"
+	public static var textEnterOldPasscode		 = "Enter your old passcode"
+	public static var textEnterNewPasscode		 = "Enter your new passcode"
+	public static var textVerifyNewPasscode		 = "Verify your new passcode"
+	public static var textFailedPasscode		 = "%d Failed Passcode Attempts"
+	public static var textPasscodeMismatch		 = "Passcodes did not match. Try again."
+	public static var textBiometricAccessReason	 = "Please use Face ID (or Touch ID) to unlock the app"
+    public static var textBiometricAccessTip     = "Allow to use Face ID (or Touch ID) to unlock the app."
 
+    public static var vefifyPasscodeImmediately  = "Immediately"
+    public static var vefifyPasscodeAfterMinutes = "After %.f minutes"
+    public static var vefifyPasscodeAfterOneHour = "After an hour"
+    
 	public static var delegate: PasscodeKitDelegate?
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -99,15 +104,20 @@ extension PasscodeKit {
 
 		let didFinishLaunching	= UIApplication.didFinishLaunchingNotification
 		let willEnterForeground	= UIApplication.willEnterForegroundNotification
+        let willResignActive = UIApplication.willResignActiveNotification
 
 		NotificationCenter.default.addObserver(self, selector: #selector(verifyPasscode), name: didFinishLaunching, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(verifyPasscode), name: willEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(verifyInterval), name: willResignActive, object: nil)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func verifyPasscode() {
 
 		if (PasscodeKit.enabled()) {
+            if (!PasscodeKit.verifiedTimeExpired()) {
+                return
+            }
 			if let viewController = topViewController() {
 				if (noPasscodePresented(viewController)) {
 					presentPasscodeVerify(viewController)
@@ -117,6 +127,13 @@ extension PasscodeKit {
 			PasscodeKit.delegate?.passcodeCheckedButDisabled?()
 		}
 	}
+    
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+    @objc private func verifyInterval() {
+        if (PasscodeKit.enabled()) {
+            PasscodeKit.verifiedTimeInterval(Date())
+        }
+    }
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func presentPasscodeVerify(_ viewController: UIViewController) {
@@ -229,6 +246,8 @@ extension PasscodeKit {
 
 		UserDefaults.standard.removeObject(forKey: "PasscodeValue")
 		UserDefaults.standard.removeObject(forKey: "PasscodeBiometric")
+        UserDefaults.standard.removeObject(forKey: "PasscodeInterval")
+        UserDefaults.standard.removeObject(forKey: "PasscodeVerifiedInterval")
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -253,6 +272,34 @@ extension PasscodeKit {
 		}
 		return text
 	}
+    
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+    public class func passcodeInterval() -> Double {
+        return UserDefaults.standard.double(forKey: "PasscodeInterval")
+    }
+    
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+    public class func passcodeInterval(_ interval: Double) {
+        UserDefaults.standard.set(interval, forKey: "PasscodeInterval")
+    }
+    
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+    public class func verifiedTimeInterval() -> TimeInterval {
+        return UserDefaults.standard.double(forKey: "PasscodeVerifiedInterval")
+    }
+    
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+    public class func verifiedTimeInterval(_ date: Date) {
+        UserDefaults.standard.set(date.timeIntervalSince1970, forKey: "PasscodeVerifiedInterval")
+    }
+    
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+    private class func verifiedTimeExpired() -> Bool {
+        let now = Date().timeIntervalSince1970
+        let prev = verifiedTimeInterval()
+        let seconds: Double = abs(now - prev)
+        return seconds >= passcodeInterval()
+    }
 }
 
 // MARK: - PasscodeKitNavController
@@ -268,7 +315,7 @@ class PasscodeKitNavController: UINavigationController {
 			self.isModalInPresentation = true
 			self.modalPresentationStyle = .fullScreen
 		}
-        
+
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
