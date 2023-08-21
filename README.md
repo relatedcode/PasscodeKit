@@ -1,7 +1,3 @@
-<a href="https://r9ryvd37cq5.typeform.com/to/E99SDQZx"><img src="https://related.chat/github/header34.png" width="880"></a>
-
----
-
 ## OVERVIEW
 
 PasscodeKit is a lightweight and easy-to-use, in-app Passcode implementation for iOS.
@@ -100,7 +96,7 @@ PasscodeKit supports both TouchID and FaceID. If you're using FaceID, be sure to
 
 MIT License
 
-Copyright (c) 2021 Related Code
+Copyright (c) 2023 Related Code
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
