@@ -6,17 +6,29 @@ PasscodeKit is a lightweight and easy-to-use, in-app Passcode implementation for
 
 ## INSTALLATION
 
-### CocoaPods:
+### CocoaPods
 
-To use PasscodeKit with [CocoaPods](https://cocoapods.org), specify in your Podfile:
+[CocoaPods](https://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects.
+
+To incorporate the **PasscodeKit** library into your Xcode project utilizing CocoaPods, please reference it within your `Podfile` as shown below:
 
 ```ruby
 pod 'PasscodeKit'
 ```
 
+### Swift Package Manager
+
+[Swift Package Manager](https://swift.org/package-manager) is a tool for managing the distribution of Swift code.
+
+Once you've configured your `Package.swift` manifest file, you may proceed to include **PasscodeKit** in the dependencies section of the same file.
+
+```swift
+dependencies: [ .package(url: "https://github.com/relatedcode/PasscodeKit.git", from: "1.0.3") ]
+```
+
 ### Manually
 
-If you prefer not to use any of the dependency managers, you can integrate `PasscodeKit` into your project manually. Just copy the contents of the `Sources` folder into your Xcode project.
+If you prefer not to use any of the dependency managers, you can integrate **PasscodeKit** into your project manually. Just copy all the `*.swift` files from the `PasscodeKit/Sources` folder into your Xcode project.
 
 ## REQUIREMENTS
 
