@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'PasscodeKit'
-  s.version = '1.0.3'
+  s.version = '1.0.4'
   s.license = 'MIT'
 
   s.summary = 'A lightweight and easy-to-use Passcode Kit for iOS.'
