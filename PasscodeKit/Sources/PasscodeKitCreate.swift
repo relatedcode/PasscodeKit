@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2021 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -11,7 +11,7 @@
 
 import UIKit
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: - PasscodeKitCreate
 class PasscodeKitCreate: UIViewController {
 
 	private var passcode = ""
@@ -24,9 +24,7 @@ class PasscodeKitCreate: UIViewController {
 
 	var delegate: PasscodeKitDelegate?
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
-
 		super.viewDidLoad()
 
 		title = PasscodeKit.titleCreatePasscode
@@ -37,26 +35,20 @@ class PasscodeKitCreate: UIViewController {
 		updateUI()
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidAppear(_ animated: Bool) {
-
 		super.viewDidAppear(animated)
 		textPasscode.becomeFirstResponder()
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func actionCancel() {
-
 		dismiss(animated: true)
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKitCreate {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupUI() {
-
 		view.backgroundColor = PasscodeKit.backgroundColor
 
 		viewPasscode.frame = CGRect(x: 0, y: 200, width: UIScreen.main.bounds.width, height: 120)
@@ -85,9 +77,7 @@ extension PasscodeKitCreate {
 		viewPasscode.addSubview(labelPasscodeMismatch)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func updateUI() {
-
 		if (passcode == "") {
 			labelInfo.text = PasscodeKit.textEnterPasscode
 		} else {
@@ -101,9 +91,7 @@ extension PasscodeKitCreate {
 		animateViewPasscode()
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func animateViewPasscode() {
-
 		let originalXPos = viewPasscode.frame.origin.x
 		viewPasscode.frame.origin.x = originalXPos + (isPasscodeMismatch ? -250 : 250)
 		UIView.animate(withDuration: 0.15) {
@@ -112,12 +100,10 @@ extension PasscodeKitCreate {
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKitCreate {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func textFieldDidChangeEditing(_ textField: UITextField) {
-
 		let current = textField.text ?? ""
 
 		if (current.count >= PasscodeKit.passcodeLength) {
@@ -127,9 +113,7 @@ extension PasscodeKitCreate {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func actionPasscode(_ current: String) {
-
 		if (passcode == "") {
 			passcode = current
 			updateUI()

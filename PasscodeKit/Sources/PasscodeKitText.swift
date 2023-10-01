@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2021 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -11,15 +11,13 @@
 
 import UIKit
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: - PasscodeKitText
 class PasscodeKitText: UITextField {
 
 	private let radius: CGFloat = 8
 	private let spacing: CGFloat = 20
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override init(frame: CGRect) {
-
 		super.init(frame: frame)
 
 		tintColor = .clear
@@ -31,21 +29,15 @@ class PasscodeKitText: UITextField {
 		font = UIFont.systemFont(ofSize: 0)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	required init?(coder: NSCoder) {
-
 		super.init(coder: coder)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-
 		return false
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func layoutSubviews() {
-
 		super.layoutSubviews()
 
 		layer.sublayers?.forEach { layer in

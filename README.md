@@ -20,11 +20,12 @@ pod 'PasscodeKit'
 
 [Swift Package Manager](https://swift.org/package-manager) is a tool for managing the distribution of Swift code.
 
-Once you've configured your `Package.swift` manifest file, you may proceed to include **PasscodeKit** in the dependencies section of the same file.
+To add **PasscodeKit** as a dependency to your project, follow these steps:
 
-```swift
-dependencies: [ .package(url: "https://github.com/relatedcode/PasscodeKit.git", from: "1.0.3") ]
-```
+1. Open your Swift project in Xcode.
+2. Navigate to `File` -> `Add Package Dependencies...`.
+3. Paste `https://github.com/relatedcode/PasscodeKit.git` into the search bar.
+4. Choose the version you want to use and click `Add Package`.
 
 ### Manually
 

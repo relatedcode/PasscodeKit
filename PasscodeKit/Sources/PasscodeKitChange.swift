@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2021 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -11,7 +11,7 @@
 
 import UIKit
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: - PasscodeState
 private enum PasscodeState {
 
 	case change1
@@ -20,7 +20,7 @@ private enum PasscodeState {
 	case complete
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: - PasscodeKitChange
 class PasscodeKitChange: UIViewController {
 
 	private var state: PasscodeState!
@@ -37,9 +37,7 @@ class PasscodeKitChange: UIViewController {
 
 	var delegate: PasscodeKitDelegate?
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
-
 		super.viewDidLoad()
 
 		title = PasscodeKit.titleChangePasscode
@@ -50,26 +48,21 @@ class PasscodeKitChange: UIViewController {
 		updateUI()
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidAppear(_ animated: Bool) {
-
 		super.viewDidAppear(animated)
+
 		textPasscode.becomeFirstResponder()
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func actionCancel() {
-
 		dismiss(animated: true)
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKitChange {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupUI() {
-
 		state = .change1
 
 		view.backgroundColor = PasscodeKit.backgroundColor
@@ -110,9 +103,7 @@ extension PasscodeKitChange {
 		viewPasscode.addSubview(labelFailedAttempts)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func updateUI() {
-
 		if (state == .change1) { labelInfo.text = PasscodeKit.textEnterOldPasscode	}
 		if (state == .change2) { labelInfo.text = PasscodeKit.textEnterNewPasscode	}
 		if (state == .change3) { labelInfo.text = PasscodeKit.textVerifyNewPasscode	}
@@ -129,9 +120,7 @@ extension PasscodeKitChange {
 		animateViewPasscode()
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func animateViewPasscode() {
-
 		let originalXPos = viewPasscode.frame.origin.x
 		viewPasscode.frame.origin.x = originalXPos + (isPasscodeMismatch ? -250 : 250)
 		UIView.animate(withDuration: 0.15) {
@@ -139,9 +128,7 @@ extension PasscodeKitChange {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupUIFailed() {
-
 		let animation = CABasicAnimation(keyPath: "position")
 		animation.duration = 0.09
 		animation.repeatCount = 2
@@ -165,12 +152,10 @@ extension PasscodeKitChange {
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKitChange {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func textFieldDidChangeEditing(_ textField: UITextField) {
-
 		let current = textField.text ?? ""
 
 		if (current.count >= PasscodeKit.passcodeLength) {
@@ -180,9 +165,7 @@ extension PasscodeKitChange {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func actionPasscode(_ current: String) {
-
 		if (state == .change1) {
 			actionVerify(current)
 		} else if (state == .change2) {
@@ -192,9 +175,7 @@ extension PasscodeKitChange {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func actionVerify(_ current: String) {
-
 		if (PasscodeKit.verify(current)) {
 			state = .change2
 			updateUI()
@@ -203,17 +184,13 @@ extension PasscodeKitChange {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func actionChange(_ current: String) {
-
 		state = .change3
 		passcode = current
 		updateUI()
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func actionConfirm(_ current: String) {
-
 		if (passcode == current) {
 			PasscodeKit.update(passcode)
 			delegate?.passcodeChanged?(passcode)

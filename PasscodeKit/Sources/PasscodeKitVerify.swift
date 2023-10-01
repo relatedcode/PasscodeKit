@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2021 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -12,7 +12,7 @@
 import UIKit
 import LocalAuthentication
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: - PasscodeKitVerify
 class PasscodeKitVerify: UIViewController {
 
 	private var failedAttempts = 0
@@ -24,29 +24,23 @@ class PasscodeKitVerify: UIViewController {
 
 	var delegate: PasscodeKitDelegate?
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
-
 		super.viewDidLoad()
 
 		title = PasscodeKit.titleEnterPasscode
 		view.backgroundColor = PasscodeKit.backgroundColor
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewWillAppear(_ animated: Bool) {
-
 		super.viewWillAppear(animated)
 		authenticateBiometric()
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKitVerify {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func authenticateBiometric() {
-
 		var error: NSError?
 		let context = LAContext()
 
@@ -62,9 +56,7 @@ extension PasscodeKitVerify {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func actionBiometric(_ success: Bool) {
-
 		if (success) {
 			delegate?.passcodeEnteredSuccessfully?()
 			dismiss(animated: true)
@@ -75,12 +67,10 @@ extension PasscodeKitVerify {
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKitVerify {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupUI() {
-
 		view.backgroundColor = PasscodeKit.backgroundColor
 
 		viewPasscode.frame = CGRect(x: 0, y: 200, width: UIScreen.main.bounds.width, height: 120)
@@ -111,9 +101,7 @@ extension PasscodeKitVerify {
 		viewPasscode.addSubview(labelFailedAttempts)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func updateUI() {
-
 		labelInfo.text = PasscodeKit.textEnterPasscode
 
 		failedAttempts = 0
@@ -122,9 +110,7 @@ extension PasscodeKitVerify {
 		labelFailedAttempts.isHidden = true
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupUIFailed() {
-
 		let animation = CABasicAnimation(keyPath: "position")
 		animation.duration = 0.09
 		animation.repeatCount = 2
@@ -148,12 +134,10 @@ extension PasscodeKitVerify {
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKitVerify {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func textFieldDidChangeEditing(_ textField: UITextField) {
-
 		let current = textField.text ?? ""
 
 		if (current.count >= PasscodeKit.passcodeLength) {
@@ -163,9 +147,7 @@ extension PasscodeKitVerify {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func actionPasscode(_ current: String) {
-
 		if (PasscodeKit.verify(current)) {
 			delegate?.passcodeEnteredSuccessfully?()
 			dismiss(animated: true)

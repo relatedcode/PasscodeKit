@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2021 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -11,22 +11,19 @@
 
 import UIKit
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-
 		PasscodeKit.delegate = self
 		PasscodeKit.start()
 
 		window = UIWindow(frame: UIScreen.main.bounds)
 
 		let viewController = ViewController(nibName: "ViewController", bundle: nil)
-		let navController = UINavigationController(rootViewController: viewController)
+		let navController = NavigationController(rootViewController: viewController)
 
 		window?.rootViewController = navController
 		window?.makeKeyAndVisible()
@@ -36,24 +33,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 // MARK: - PasscodeKitDelegate
-//-----------------------------------------------------------------------------------------------------------------------------------------------
 extension AppDelegate: PasscodeKitDelegate {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func passcodeCheckedButDisabled() {
-
 		print(#function)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func passcodeEnteredSuccessfully() {
-
 		print(#function)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func passcodeMaximumFailedAttempts() {
-
 		print(#function)
 	}
 }

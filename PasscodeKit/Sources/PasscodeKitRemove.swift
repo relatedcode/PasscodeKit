@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2021 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -11,7 +11,7 @@
 
 import UIKit
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: - PasscodeKitRemove
 class PasscodeKitRemove: UIViewController {
 
 	private var failedAttempts = 0
@@ -23,9 +23,7 @@ class PasscodeKitRemove: UIViewController {
 
 	var delegate: PasscodeKitDelegate?
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
-
 		super.viewDidLoad()
 
 		title = PasscodeKit.titleRemovePasscode
@@ -36,26 +34,20 @@ class PasscodeKitRemove: UIViewController {
 		updateUI()
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidAppear(_ animated: Bool) {
-
 		super.viewDidAppear(animated)
 		textPasscode.becomeFirstResponder()
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func actionCancel() {
-
 		dismiss(animated: true)
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKitRemove {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupUI() {
-
 		view.backgroundColor = PasscodeKit.backgroundColor
 
 		viewPasscode.frame = CGRect(x: 0, y: 200, width: UIScreen.main.bounds.width, height: 120)
@@ -86,9 +78,7 @@ extension PasscodeKitRemove {
 		viewPasscode.addSubview(labelFailedAttempts)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func updateUI() {
-
 		labelInfo.text = PasscodeKit.textEnterPasscode
 
 		failedAttempts = 0
@@ -97,9 +87,7 @@ extension PasscodeKitRemove {
 		labelFailedAttempts.isHidden = true
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func setupUIFailed() {
-
 		let animation = CABasicAnimation(keyPath: "position")
 		animation.duration = 0.09
 		animation.repeatCount = 2
@@ -123,12 +111,10 @@ extension PasscodeKitRemove {
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKitRemove {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func textFieldDidChangeEditing(_ textField: UITextField) {
-
 		let current = textField.text ?? ""
 
 		if (current.count >= PasscodeKit.passcodeLength) {
@@ -138,9 +124,7 @@ extension PasscodeKitRemove {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func actionPasscode(_ current: String) {
-
 		if (PasscodeKit.verify(current)) {
 			PasscodeKit.remove()
 			delegate?.passcodeRemoved?()

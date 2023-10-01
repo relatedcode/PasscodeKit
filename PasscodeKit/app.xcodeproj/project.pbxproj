@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		295B8482248C1C5B003E8AE6 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 295B8480248C1C5B003E8AE6 /* ViewController.xib */; };
 		295B8483248C1C5B003E8AE6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B8481248C1C5B003E8AE6 /* ViewController.swift */; };
+		296568FA2AC9885E00FFEA60 /* NavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296568F92AC9885E00FFEA60 /* NavController.swift */; };
 		29D29EF91D9A59E4006CA074 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D29EF81D9A59E4006CA074 /* AppDelegate.swift */; };
 		29D29F011D9A59E4006CA074 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D29F001D9A59E4006CA074 /* Assets.xcassets */; };
 		29D29F041D9A59E4006CA074 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D29F021D9A59E4006CA074 /* LaunchScreen.storyboard */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		295B8480248C1C5B003E8AE6 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		295B8481248C1C5B003E8AE6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		296568F92AC9885E00FFEA60 /* NavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavController.swift; sourceTree = "<group>"; };
 		29D29EF11D9A59E4006CA074 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29D29EF81D9A59E4006CA074 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29D29F001D9A59E4006CA074 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				29D29F001D9A59E4006CA074 /* Assets.xcassets */,
 				29D29F051D9A59E4006CA074 /* Info.plist */,
 				29D29F021D9A59E4006CA074 /* LaunchScreen.storyboard */,
+				296568F92AC9885E00FFEA60 /* NavController.swift */,
 				29D9780E261DB39C00C80DBD /* PasscodeView.swift */,
 				29D9780F261DB39C00C80DBD /* PasscodeView.xib */,
 				295B8481248C1C5B003E8AE6 /* ViewController.swift */,
@@ -186,6 +189,7 @@
 				29D9780C261DB37700C80DBD /* PasscodeKitRemove.swift in Sources */,
 				29D97807261DB37700C80DBD /* PasscodeKitText.swift in Sources */,
 				29D9780B261DB37700C80DBD /* PasscodeKitChange.swift in Sources */,
+				296568FA2AC9885E00FFEA60 /* NavController.swift in Sources */,
 				29D97808261DB37700C80DBD /* PasscodeKit.swift in Sources */,
 				29D97810261DB39C00C80DBD /* PasscodeView.swift in Sources */,
 				29D9780A261DB37700C80DBD /* PasscodeKitCreate.swift in Sources */,
@@ -337,7 +341,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.passcodekit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -370,7 +374,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.passcodekit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

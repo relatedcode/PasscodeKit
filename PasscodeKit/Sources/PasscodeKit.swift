@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2021 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -12,7 +12,7 @@
 import UIKit
 import CryptoKit
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: - PasscodeKitDelegate
 @objc public protocol PasscodeKitDelegate {
 
 	@objc optional func passcodeCreated(_ passcode: String)
@@ -24,9 +24,8 @@ import CryptoKit
 	@objc optional func passcodeMaximumFailedAttempts()
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: - PasscodeKit
 public class PasscodeKit: NSObject {
-
 	static let shared: PasscodeKit = {
 		let instance = PasscodeKit()
 		return instance
@@ -57,9 +56,7 @@ public class PasscodeKit: NSObject {
 
 	public static var delegate: PasscodeKitDelegate?
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public override init() {
-
 		super.init()
 
 		if #available(iOS 13.0, *) {
@@ -70,15 +67,11 @@ public class PasscodeKit: NSObject {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public class func start() {
-
 		shared.start()
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public class func dismiss() {
-
 		if (PasscodeKit.enabled()) {
 			if let navigationController = shared.topViewController() as? UINavigationController {
 				if let presentedView = navigationController.viewControllers.first {
@@ -91,12 +84,10 @@ public class PasscodeKit: NSObject {
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKit {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func start() {
-
 		let didFinishLaunching	= UIApplication.didFinishLaunchingNotification
 		let willEnterForeground	= UIApplication.willEnterForegroundNotification
 
@@ -104,9 +95,7 @@ extension PasscodeKit {
 		NotificationCenter.default.addObserver(self, selector: #selector(verifyPasscode), name: willEnterForeground, object: nil)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func verifyPasscode() {
-
 		if (PasscodeKit.enabled()) {
 			if let viewController = topViewController() {
 				if (noPasscodePresented(viewController)) {
@@ -118,9 +107,7 @@ extension PasscodeKit {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func presentPasscodeVerify(_ viewController: UIViewController) {
-
 		DispatchQueue.main.async {
 			let passcodeKitVerify = PasscodeKitVerify()
 			passcodeKitVerify.delegate = PasscodeKit.delegate
@@ -129,9 +116,7 @@ extension PasscodeKit {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func noPasscodePresented(_ viewController: UIViewController) -> Bool {
-
 		var result = true
 		if let navigationController = viewController as? UINavigationController {
 			if let presentedView = navigationController.viewControllers.first {
@@ -144,9 +129,7 @@ extension PasscodeKit {
 		return result
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func topViewController() -> UIViewController? {
-
 		var keyWindow: UIWindow?
 
 		if #available(iOS 13.0, *) {
@@ -163,30 +146,24 @@ extension PasscodeKit {
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKit {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public class func createPasscode(_ viewController: UIViewController) {
-
 		let passcodeKitCreate = PasscodeKitCreate()
 		passcodeKitCreate.delegate = viewController as? PasscodeKitDelegate
 		let navController = PasscodeKitNavController(rootViewController: passcodeKitCreate)
 		viewController.present(navController, animated: true)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public class func changePasscode(_ viewController: UIViewController) {
-
 		let passcodeKitChange = PasscodeKitChange()
 		passcodeKitChange.delegate = viewController as? PasscodeKitDelegate
 		let navController = PasscodeKitNavController(rootViewController: passcodeKitChange)
 		viewController.present(navController, animated: true)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public class func removePasscode(_ viewController: UIViewController) {
-
 		let passcodeKitRemove = PasscodeKitRemove()
 		passcodeKitRemove.delegate = viewController as? PasscodeKitDelegate
 		let navController = PasscodeKitNavController(rootViewController: passcodeKitRemove)
@@ -194,28 +171,21 @@ extension PasscodeKit {
 	}
 }
 
-// MARK: - Passcode methods
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 extension PasscodeKit {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public class func enabled() -> Bool {
-
 		return (UserDefaults.standard.string(forKey: "PasscodeValue") != nil)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public class func verify(_ passcode: String) -> Bool {
-
 		if (passcode != "") {
 			return (UserDefaults.standard.string(forKey: "PasscodeValue") == sha256(passcode))
 		}
 		return (UserDefaults.standard.string(forKey: "PasscodeValue") == nil)
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public class func update(_ passcode: String) {
-
 		if (passcode != "") {
 			UserDefaults.standard.set(sha256(passcode), forKey: "PasscodeValue")
 		} else {
@@ -224,28 +194,20 @@ extension PasscodeKit {
 		}
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public class func remove() {
-
 		UserDefaults.standard.removeObject(forKey: "PasscodeValue")
 		UserDefaults.standard.removeObject(forKey: "PasscodeBiometric")
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public class func biometric() -> Bool {
-
 		return UserDefaults.standard.bool(forKey: "PasscodeBiometric")
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	public class func biometric(_ value: Bool) {
-
 		UserDefaults.standard.set(value, forKey: "PasscodeBiometric")
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private class func sha256(_ text: String) -> String {
-
 		if #available(iOS 13.0, *) {
 			let data = Data(text.utf8)
 			let hash = SHA256.hash(data: data)
@@ -256,12 +218,9 @@ extension PasscodeKit {
 }
 
 // MARK: - PasscodeKitNavController
-//-----------------------------------------------------------------------------------------------------------------------------------------------
 class PasscodeKitNavController: UINavigationController {
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
-
 		super.viewDidLoad()
 
 		if #available(iOS 13.0, *) {
@@ -272,21 +231,15 @@ class PasscodeKitNavController: UINavigationController {
 		navigationBar.isTranslucent = false
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-
 		return .portrait
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-
 		return .portrait
 	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override var shouldAutorotate: Bool {
-
 		return false
 	}
 }
