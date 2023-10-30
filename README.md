@@ -1,8 +1,10 @@
+<a href="https://learngpt.art"><img src="https://rel.codes/banner/002.png" width="880"></a>
+
 ## OVERVIEW
 
 PasscodeKit is a lightweight and easy-to-use, in-app Passcode implementation for iOS.
 
-<img src="https://related.chat/passcodekit/01x.png" width="880">
+<img src="https://rel.codes/passcodekit/01.png" width="880">
 
 ## INSTALLATION
 
@@ -63,7 +65,7 @@ PasscodeKit.changePasscode(self)
 PasscodeKit.removePasscode(self)
 ```
 
-<img src="https://related.chat/passcodekit/02x.png" width="880">
+<img src="https://rel.codes/passcodekit/02.png" width="880">
 
 ## CUSTOMIZATION
 
@@ -103,7 +105,7 @@ PasscodeKit.textTouchIDAccessReason = "Please use Touch ID to unlock the app"
 
 PasscodeKit supports both TouchID and FaceID. If you're using FaceID, be sure to add the `NSFaceIDUsageDescription` details into your Info.plist file.
 
-<img src="https://related.chat/passcodekit/03x.png" width="880">
+<img src="https://rel.codes/passcodekit/03.png" width="880">
 
 ## LICENSE
 
