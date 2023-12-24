@@ -1,5 +1,3 @@
-<a href="https://learngpt.art"><img src="https://rel.codes/banner/002.png" width="880"></a>
-
 ## OVERVIEW
 
 PasscodeKit is a lightweight and easy-to-use, in-app Passcode implementation for iOS.
