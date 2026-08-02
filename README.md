@@ -4,7 +4,7 @@ For detailed changes, please refer to the [Change log](CHANGELOG.md).
 
 ## OVERVIEW
 
-PasscodeKit is a lightweight and easy-to-use, in-app Passcode implementation for iOS.
+PasscodeKit is a lightweight and easy-to-use, in-app Passcode implementation for iOS. It includes a custom numeric keypad, optional haptic feedback, and Face ID / Touch ID support.
 
 ## INSTALLATION
 
@@ -88,12 +88,12 @@ PasscodeKit.textEnterNewPasscode = "Enter your new passcode"
 PasscodeKit.textVerifyNewPasscode = "Verify your new passcode"
 PasscodeKit.textFailedPasscode = "%d Failed Passcode Attempts"
 PasscodeKit.textPasscodeMismatch = "Passcodes did not match. Try again."
-PasscodeKit.textTouchIDAccessReason = "Please use Touch ID to unlock the app"
+PasscodeKit.textTouchIDAccessReason = "Please use Face ID or Touch ID to unlock the app"
 ```
 
 ## CONFIGURATION
 
-PasscodeKit supports both TouchID and FaceID. If you're using FaceID, be sure to add the `NSFaceIDUsageDescription` details into your Info.plist file.
+PasscodeKit supports both Face ID and Touch ID. If you're using Face ID, add an `NSFaceIDUsageDescription` entry to your Info.plist.
 
 ## LICENSE
 

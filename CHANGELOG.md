@@ -13,6 +13,10 @@ Released on 2026-08-02.
 
 - Resolved empty dSYM warning for Debug simulator builds.
 
+#### Revision
+
+- Clarified Face ID / Touch ID wording in docs and the default biometric access reason.
+
 ## [1.0.5](https://github.com/relatedcode/PasscodeKit/releases/tag/1.0.5)
 
 Released on 2026-08-02.

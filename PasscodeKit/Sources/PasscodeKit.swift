@@ -53,7 +53,7 @@ public class PasscodeKit: NSObject {
 	public static var textVerifyNewPasscode		= "Verify your new passcode"
 	public static var textFailedPasscode		= "%d Failed Passcode Attempts"
 	public static var textPasscodeMismatch		= "Passcodes did not match. Try again."
-	public static var textTouchIDAccessReason	= "Please use Touch ID to unlock the app"
+	public static var textTouchIDAccessReason	= "Please use Face ID or Touch ID to unlock the app"
 
 	public static var delegate: PasscodeKitDelegate?
 
