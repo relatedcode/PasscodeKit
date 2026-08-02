@@ -28,6 +28,7 @@ class PasscodeKitKeypad: UIView {
 
 	private var isCompleting = false
 	private var buttons: [UIButton] = []
+	private let impactFeedback = UIImpactFeedbackGenerator(style: .light)
 
 	var preferredHeight: CGFloat {
 		return (buttonSize * 4) + (rowSpacing * 3) + 24
@@ -36,11 +37,13 @@ class PasscodeKitKeypad: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		setupUI()
+		impactFeedback.prepare()
 	}
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		setupUI()
+		impactFeedback.prepare()
 	}
 
 	func attach(to textField: PasscodeKitText, onComplete: @escaping (String) -> Void) {
@@ -49,6 +52,10 @@ class PasscodeKitKeypad: UIView {
 
 			let current = (textField.text ?? "") + digit
 			if (current.count <= PasscodeKit.passcodeLength) {
+				if (PasscodeKit.hapticFeedback) {
+					self.impactFeedback.impactOccurred()
+					self.impactFeedback.prepare()
+				}
 				textField.text = current
 				textField.setNeedsLayout()
 				if (current.count >= PasscodeKit.passcodeLength) {
@@ -149,8 +156,7 @@ extension PasscodeKitKeypad {
 
 		let button = UIButton(type: .custom)
 		button.translatesAutoresizingMaskIntoConstraints = false
-		button.addTarget(self, action: #selector(actionTap(_:)), for: .touchUpInside)
-		button.addTarget(self, action: #selector(actionHighlight(_:)), for: .touchDown)
+		button.addTarget(self, action: #selector(actionTouchDown(_:)), for: .touchDown)
 		button.addTarget(self, action: #selector(actionUnhighlight(_:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
 		container.addSubview(button)
 
@@ -217,7 +223,10 @@ extension PasscodeKitKeypad {
 		return container
 	}
 
-	@objc private func actionTap(_ sender: UIButton) {
+	@objc private func actionTouchDown(_ sender: UIButton) {
+		sender.layer.removeAllAnimations()
+		sender.alpha = 0.55
+
 		if (sender.tag == -1) {
 			deleteHandler?()
 		} else {
@@ -225,12 +234,8 @@ extension PasscodeKitKeypad {
 		}
 	}
 
-	@objc private func actionHighlight(_ sender: UIButton) {
-		sender.alpha = 0.55
-	}
-
 	@objc private func actionUnhighlight(_ sender: UIButton) {
-		UIView.animate(withDuration: 0.15) {
+		UIView.animate(withDuration: 0.15, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState]) {
 			sender.alpha = 1.0
 		}
 	}

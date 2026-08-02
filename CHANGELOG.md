@@ -4,6 +4,11 @@
 
 Released on 2026-08-02.
 
+#### Added
+
+- Added custom `PasscodeKitKeypad` for passcode entry, replacing the system keyboard.
+- Added haptic feedback for passcode entry, acceptance, and decline.
+
 #### Fixed
 
 - Resolved empty dSYM warning for Debug simulator builds.

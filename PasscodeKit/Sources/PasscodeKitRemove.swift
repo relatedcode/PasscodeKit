@@ -97,6 +97,8 @@ extension PasscodeKitRemove {
 	}
 
 	private func setupUIFailed() {
+		PasscodeKit.hapticDecline()
+
 		let animation = CABasicAnimation(keyPath: "position")
 		animation.duration = 0.09
 		animation.repeatCount = 2
@@ -126,6 +128,7 @@ extension PasscodeKitRemove {
 
 	private func actionPasscode(_ current: String) {
 		if (PasscodeKit.verify(current)) {
+			PasscodeKit.hapticAccept()
 			PasscodeKit.remove()
 			delegate?.passcodeRemoved?()
 			dismiss(animated: true)

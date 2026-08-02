@@ -33,6 +33,7 @@ public class PasscodeKit: NSObject {
 
 	public static var passcodeLength			= 4
 	public static var allowedFailedAttempts		= 3
+	public static var hapticFeedback			= true
 
 	public static var textColor					= UIColor.darkText
 	public static var backgroundColor			= UIColor.lightGray
@@ -162,6 +163,20 @@ extension PasscodeKit {
 		passcodeKitRemove.delegate = viewController as? PasscodeKitDelegate
 		let navController = PasscodeKitNavController(rootViewController: passcodeKitRemove)
 		viewController.present(navController, animated: true)
+	}
+}
+
+// MARK: -
+extension PasscodeKit {
+
+	class func hapticAccept() {
+		guard hapticFeedback else { return }
+		UINotificationFeedbackGenerator().notificationOccurred(.success)
+	}
+
+	class func hapticDecline() {
+		guard hapticFeedback else { return }
+		UINotificationFeedbackGenerator().notificationOccurred(.error)
 	}
 }
 

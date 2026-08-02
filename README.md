@@ -63,6 +63,8 @@ The following settings are available for customizing the passcode-related user e
 PasscodeKit.passcodeLength = 4
 
 PasscodeKit.allowedFailedAttempts = 3
+
+PasscodeKit.hapticFeedback = true
 ```
 
 ```swift

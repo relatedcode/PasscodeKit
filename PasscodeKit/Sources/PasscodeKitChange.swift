@@ -138,6 +138,8 @@ extension PasscodeKitChange {
 	}
 
 	private func setupUIFailed() {
+		PasscodeKit.hapticDecline()
+
 		let animation = CABasicAnimation(keyPath: "position")
 		animation.duration = 0.09
 		animation.repeatCount = 2
@@ -177,6 +179,7 @@ extension PasscodeKitChange {
 
 	private func actionVerify(_ current: String) {
 		if (PasscodeKit.verify(current)) {
+			PasscodeKit.hapticAccept()
 			state = .change2
 			updateUI()
 		} else {
@@ -192,10 +195,12 @@ extension PasscodeKitChange {
 
 	private func actionConfirm(_ current: String) {
 		if (passcode == current) {
+			PasscodeKit.hapticAccept()
 			PasscodeKit.update(passcode)
 			delegate?.passcodeChanged?(passcode)
 			dismiss(animated: true)
 		} else {
+			PasscodeKit.hapticDecline()
 			isPasscodeMismatch = true
 			state = .change2
 			updateUI()

@@ -70,6 +70,7 @@ extension PasscodeKitVerify {
 
 	private func actionBiometric(_ success: Bool) {
 		if (success) {
+			PasscodeKit.hapticAccept()
 			delegate?.passcodeEnteredSuccessfully?()
 			dismiss(animated: true)
 		} else {
@@ -127,6 +128,8 @@ extension PasscodeKitVerify {
 	}
 
 	private func setupUIFailed() {
+		PasscodeKit.hapticDecline()
+
 		let animation = CABasicAnimation(keyPath: "position")
 		animation.duration = 0.09
 		animation.repeatCount = 2
@@ -156,6 +159,7 @@ extension PasscodeKitVerify {
 
 	private func actionPasscode(_ current: String) {
 		if (PasscodeKit.verify(current)) {
+			PasscodeKit.hapticAccept()
 			delegate?.passcodeEnteredSuccessfully?()
 			dismiss(animated: true)
 		} else {

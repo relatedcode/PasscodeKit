@@ -118,10 +118,12 @@ extension PasscodeKitCreate {
 			updateUI()
 		} else {
 			if (passcode == current) {
+				PasscodeKit.hapticAccept()
 				PasscodeKit.update(passcode)
 				delegate?.passcodeCreated?(passcode)
 				dismiss(animated: true)
 			} else {
+				PasscodeKit.hapticDecline()
 				isPasscodeMismatch = true
 				passcode = ""
 				updateUI()
