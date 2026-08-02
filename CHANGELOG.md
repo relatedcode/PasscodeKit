@@ -16,6 +16,8 @@ Released on 2026-08-02.
 #### Revision
 
 - Clarified Face ID / Touch ID wording in docs and the default biometric access reason.
+- Replaced deprecated `UIApplication.shared.windows` lookup with the scene-based API.
+- Made `PasscodeKit.start()` idempotent to avoid duplicate notification observers.
 
 ## [1.0.5](https://github.com/relatedcode/PasscodeKit/releases/tag/1.0.5)
 

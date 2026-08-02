@@ -57,6 +57,8 @@ public class PasscodeKit: NSObject {
 
 	public static var delegate: PasscodeKitDelegate?
 
+	private var isStarted = false
+
 	public override init() {
 		super.init()
 
@@ -89,6 +91,9 @@ public class PasscodeKit: NSObject {
 extension PasscodeKit {
 
 	private func start() {
+		guard !isStarted else { return }
+		isStarted = true
+
 		let didFinishLaunching	= UIApplication.didFinishLaunchingNotification
 		let willEnterForeground	= UIApplication.willEnterForegroundNotification
 
@@ -131,7 +136,15 @@ extension PasscodeKit {
 	}
 
 	private func topViewController() -> UIViewController? {
-		let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
+		let windowScene = UIApplication.shared.connectedScenes
+			.compactMap { $0 as? UIWindowScene }
+			.first { $0.activationState == .foregroundActive }
+			?? UIApplication.shared.connectedScenes
+				.compactMap { $0 as? UIWindowScene }
+				.first
+
+		let keyWindow = windowScene?.windows.first { $0.isKeyWindow }
+			?? windowScene?.windows.first
 
 		var viewController = keyWindow?.rootViewController
 		while (viewController?.presentedViewController != nil) {
