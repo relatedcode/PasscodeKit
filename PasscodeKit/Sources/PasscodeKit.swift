@@ -223,6 +223,19 @@ class PasscodeKitNavController: UINavigationController {
 		}
 
 		navigationBar.isTranslucent = false
+		navigationBar.tintColor = .systemBlue
+		navigationBar.barTintColor = PasscodeKit.backgroundColor
+		navigationBar.titleTextAttributes = [.foregroundColor: PasscodeKit.textColor]
+
+		if #available(iOS 15.0, *) {
+			let appearance = UINavigationBarAppearance()
+			appearance.configureWithOpaqueBackground()
+			appearance.backgroundColor = PasscodeKit.backgroundColor
+			appearance.titleTextAttributes = [.foregroundColor: PasscodeKit.textColor]
+			navigationBar.standardAppearance = appearance
+			navigationBar.scrollEdgeAppearance = appearance
+			navigationBar.compactAppearance = appearance
+		}
 	}
 
 	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

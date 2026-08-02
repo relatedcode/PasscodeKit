@@ -20,6 +20,7 @@ class PasscodeKitRemove: UIViewController {
 	private var textPasscode: PasscodeKitText!
 	private var labelInfo = UILabel()
 	private var labelFailedAttempts = UILabel()
+	private var keypad = PasscodeKitKeypad()
 
 	var delegate: PasscodeKitDelegate?
 
@@ -34,9 +35,13 @@ class PasscodeKitRemove: UIViewController {
 		updateUI()
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		textPasscode.becomeFirstResponder()
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		keypad.layoutContentView(viewPasscode, in: view)
+		let width = viewPasscode.bounds.width
+		labelInfo.frame.size.width = width
+		textPasscode.frame.size.width = width
+		labelFailedAttempts.frame.origin.x = (width - labelFailedAttempts.frame.width) / 2
 	}
 
 	@objc private func actionCancel() {
@@ -50,7 +55,7 @@ extension PasscodeKitRemove {
 	private func setupUI() {
 		view.backgroundColor = PasscodeKit.backgroundColor
 
-		viewPasscode.frame = CGRect(x: 0, y: 200, width: UIScreen.main.bounds.width, height: 120)
+		viewPasscode.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120)
 		view.addSubview(viewPasscode)
 
 		labelInfo.textAlignment = .center
@@ -64,7 +69,6 @@ extension PasscodeKitRemove {
 		}
 		textPasscode = PasscodeKitText()
 		textPasscode.frame = CGRect(x: 0, y: 45, width: UIScreen.main.bounds.width, height: 30)
-		textPasscode.addTarget(self, action: #selector(textFieldDidChangeEditing(_:)), for: .editingChanged)
 		viewPasscode.addSubview(textPasscode)
 
 		labelFailedAttempts.textAlignment = .center
@@ -76,6 +80,11 @@ extension PasscodeKitRemove {
 		labelFailedAttempts.isHidden = true
 		labelFailedAttempts.clipsToBounds = true
 		viewPasscode.addSubview(labelFailedAttempts)
+
+		keypad.pinToBottom(of: view)
+		keypad.attach(to: textPasscode) { [weak self] current in
+			self?.actionPasscode(current)
+		}
 	}
 
 	private func updateUI() {
@@ -83,7 +92,7 @@ extension PasscodeKitRemove {
 
 		failedAttempts = 0
 		textPasscode.text = ""
-		textPasscode.becomeFirstResponder()
+		textPasscode.setNeedsLayout()
 		labelFailedAttempts.isHidden = true
 	}
 
@@ -103,6 +112,7 @@ extension PasscodeKitRemove {
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
 			self.textPasscode.text = ""
+			self.textPasscode.setNeedsLayout()
 		}
 
 		if (failedAttempts >= PasscodeKit.allowedFailedAttempts) {
@@ -113,16 +123,6 @@ extension PasscodeKitRemove {
 
 // MARK: -
 extension PasscodeKitRemove {
-
-	@objc private func textFieldDidChangeEditing(_ textField: UITextField) {
-		let current = textField.text ?? ""
-
-		if (current.count >= PasscodeKit.passcodeLength) {
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-				self.actionPasscode(current)
-			}
-		}
-	}
 
 	private func actionPasscode(_ current: String) {
 		if (PasscodeKit.verify(current)) {

@@ -22,13 +22,13 @@ class NavigationController: UINavigationController {
 		navigationBar.isTranslucent = true
 
 		navigationBar.tintColor = .white
-		navigationBar.barTintColor = .lightGray
+		navigationBar.barTintColor = .systemOrange
 		navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 
 		if #available(iOS 15, *) {
 			let appearance = UINavigationBarAppearance()
 			appearance.configureWithOpaqueBackground()
-			appearance.backgroundColor = .lightGray
+			appearance.backgroundColor = .systemOrange
 			appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 			UINavigationBar.appearance().standardAppearance = appearance
 			UINavigationBar.appearance().scrollEdgeAppearance = appearance

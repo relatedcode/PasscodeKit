@@ -23,14 +23,18 @@ class PasscodeKitText: UITextField {
 		tintColor = .clear
 		textColor = .clear
 		borderStyle = .none
-		keyboardType = .numberPad
-		textContentType = .password
+		isSecureTextEntry = false
+		isUserInteractionEnabled = false
 
 		font = UIFont.systemFont(ofSize: 0)
 	}
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
+	}
+
+	override var canBecomeFirstResponder: Bool {
+		return false
 	}
 
 	override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {

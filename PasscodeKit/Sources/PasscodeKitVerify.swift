@@ -16,11 +16,13 @@ import LocalAuthentication
 class PasscodeKitVerify: UIViewController {
 
 	private var failedAttempts = 0
+	private var didSetupUI = false
 
 	private var viewPasscode = UIView()
 	private var textPasscode: PasscodeKitText!
 	private var labelInfo = UILabel()
 	private var labelFailedAttempts = UILabel()
+	private var keypad = PasscodeKitKeypad()
 
 	var delegate: PasscodeKitDelegate?
 
@@ -34,6 +36,16 @@ class PasscodeKitVerify: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		authenticateBiometric()
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		guard didSetupUI else { return }
+		keypad.layoutContentView(viewPasscode, in: view)
+		let width = viewPasscode.bounds.width
+		labelInfo.frame.size.width = width
+		textPasscode.frame.size.width = width
+		labelFailedAttempts.frame.origin.x = (width - labelFailedAttempts.frame.width) / 2
 	}
 }
 
@@ -71,9 +83,12 @@ extension PasscodeKitVerify {
 extension PasscodeKitVerify {
 
 	private func setupUI() {
+		if (didSetupUI) { return }
+		didSetupUI = true
+
 		view.backgroundColor = PasscodeKit.backgroundColor
 
-		viewPasscode.frame = CGRect(x: 0, y: 200, width: UIScreen.main.bounds.width, height: 120)
+		viewPasscode.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120)
 		view.addSubview(viewPasscode)
 
 		labelInfo.textAlignment = .center
@@ -82,12 +97,8 @@ extension PasscodeKitVerify {
 		labelInfo.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 30)
 		viewPasscode.addSubview(labelInfo)
 
-		if (textPasscode != nil) && (textPasscode.superview != nil) {
-			textPasscode.removeFromSuperview()
-		}
 		textPasscode = PasscodeKitText()
 		textPasscode.frame = CGRect(x: 0, y: 45, width: UIScreen.main.bounds.width, height: 30)
-		textPasscode.addTarget(self, action: #selector(textFieldDidChangeEditing(_:)), for: .editingChanged)
 		viewPasscode.addSubview(textPasscode)
 
 		labelFailedAttempts.textAlignment = .center
@@ -99,6 +110,11 @@ extension PasscodeKitVerify {
 		labelFailedAttempts.isHidden = true
 		labelFailedAttempts.clipsToBounds = true
 		viewPasscode.addSubview(labelFailedAttempts)
+
+		keypad.pinToBottom(of: view)
+		keypad.attach(to: textPasscode) { [weak self] current in
+			self?.actionPasscode(current)
+		}
 	}
 
 	private func updateUI() {
@@ -106,7 +122,7 @@ extension PasscodeKitVerify {
 
 		failedAttempts = 0
 		textPasscode.text = ""
-		textPasscode.becomeFirstResponder()
+		textPasscode.setNeedsLayout()
 		labelFailedAttempts.isHidden = true
 	}
 
@@ -126,6 +142,7 @@ extension PasscodeKitVerify {
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
 			self.textPasscode.text = ""
+			self.textPasscode.setNeedsLayout()
 		}
 
 		if (failedAttempts >= PasscodeKit.allowedFailedAttempts) {
@@ -136,16 +153,6 @@ extension PasscodeKitVerify {
 
 // MARK: -
 extension PasscodeKitVerify {
-
-	@objc private func textFieldDidChangeEditing(_ textField: UITextField) {
-		let current = textField.text ?? ""
-
-		if (current.count >= PasscodeKit.passcodeLength) {
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-				self.actionPasscode(current)
-			}
-		}
-	}
 
 	private func actionPasscode(_ current: String) {
 		if (PasscodeKit.verify(current)) {

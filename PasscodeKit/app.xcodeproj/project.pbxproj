@@ -21,6 +21,7 @@
 		29D9780C261DB37700C80DBD /* PasscodeKitRemove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D97806261DB37700C80DBD /* PasscodeKitRemove.swift */; };
 		29D97810261DB39C00C80DBD /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D9780E261DB39C00C80DBD /* PasscodeView.swift */; };
 		29D97811261DB39C00C80DBD /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29D9780F261DB39C00C80DBD /* PasscodeView.xib */; };
+		29D97815261DB37700C80DBD /* PasscodeKitKeypad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D97814261DB37700C80DBD /* PasscodeKitKeypad.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		29D97806261DB37700C80DBD /* PasscodeKitRemove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeKitRemove.swift; sourceTree = "<group>"; };
 		29D9780E261DB39C00C80DBD /* PasscodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeView.swift; sourceTree = "<group>"; };
 		29D9780F261DB39C00C80DBD /* PasscodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasscodeView.xib; sourceTree = "<group>"; };
+		29D97814261DB37700C80DBD /* PasscodeKitKeypad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeKitKeypad.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				29D97802261DB37700C80DBD /* PasscodeKit.swift */,
 				29D97805261DB37700C80DBD /* PasscodeKitChange.swift */,
 				29D97804261DB37700C80DBD /* PasscodeKitCreate.swift */,
+				29D97814261DB37700C80DBD /* PasscodeKitKeypad.swift */,
 				29D97806261DB37700C80DBD /* PasscodeKitRemove.swift */,
 				29D97801261DB37700C80DBD /* PasscodeKitText.swift */,
 				29D97803261DB37700C80DBD /* PasscodeKitVerify.swift */,
@@ -126,7 +129,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 2630;
 				ORGANIZATIONNAME = KZ;
 				TargetAttributes = {
 					29D29EF01D9A59E4006CA074 = {
@@ -191,6 +194,7 @@
 				29D9780B261DB37700C80DBD /* PasscodeKitChange.swift in Sources */,
 				296568FA2AC9885E00FFEA60 /* NavController.swift in Sources */,
 				29D97808261DB37700C80DBD /* PasscodeKit.swift in Sources */,
+				29D97815261DB37700C80DBD /* PasscodeKitKeypad.swift in Sources */,
 				29D97810261DB39C00C80DBD /* PasscodeView.swift in Sources */,
 				29D9780A261DB37700C80DBD /* PasscodeKitCreate.swift in Sources */,
 				29D29EF91D9A59E4006CA074 /* AppDelegate.swift in Sources */,
@@ -215,6 +219,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -266,6 +271,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -274,6 +280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -318,6 +325,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
