@@ -130,13 +130,7 @@ extension PasscodeKit {
 	}
 
 	private func topViewController() -> UIViewController? {
-		var keyWindow: UIWindow?
-
-		if #available(iOS 13.0, *) {
-			keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
-		} else {
-			keyWindow = UIApplication.shared.keyWindow
-		}
+		let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
 
 		var viewController = keyWindow?.rootViewController
 		while (viewController?.presentedViewController != nil) {

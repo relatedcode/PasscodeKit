@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.0.6](https://github.com/relatedcode/PasscodeKit/releases/tag/1.0.6)
+
+Released on 2026-08-02.
+
+#### Fixed
+
+- Resolved empty dSYM warning for Debug simulator builds.
+
 ## [1.0.5](https://github.com/relatedcode/PasscodeKit/releases/tag/1.0.5)
 
 Released on 2026-08-02.
