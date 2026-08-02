@@ -1,22 +1,16 @@
+## WHAT'S NEW
+
+For detailed changes, please refer to the [Change log](CHANGELOG.md).
+
 ## OVERVIEW
 
 PasscodeKit is a lightweight and easy-to-use, in-app Passcode implementation for iOS.
 
 ## INSTALLATION
 
-### CocoaPods
-
-[CocoaPods](https://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects.
-
-To incorporate the **PasscodeKit** library into your Xcode project utilizing CocoaPods, please reference it within your `Podfile` as shown below:
-
-```ruby
-pod 'PasscodeKit'
-```
-
 ### Swift Package Manager
 
-[Swift Package Manager](https://swift.org/package-manager) is a tool for managing the distribution of Swift code.
+[Swift Package Manager](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/) is a tool for managing Swift code distribution.
 
 To add **PasscodeKit** as a dependency to your project, follow these steps:
 
@@ -27,11 +21,11 @@ To add **PasscodeKit** as a dependency to your project, follow these steps:
 
 ### Manually
 
-If you prefer not to use any of the dependency managers, you can integrate **PasscodeKit** into your project manually. Just copy all the `*.swift` files from the `PasscodeKit/Sources` folder into your Xcode project.
+If you prefer not to use the dependency manager above, you can integrate **PasscodeKit** into your project manually. Simply copy all the `*.swift` files from the `PasscodeKit/Sources` folder into your Xcode project.
 
 ## REQUIREMENTS
 
-- iOS 12.0+
+- iOS 13.0+
 
 ## QUICKSTART
 
@@ -103,7 +97,7 @@ PasscodeKit supports both TouchID and FaceID. If you're using FaceID, be sure to
 
 MIT License
 
-Copyright (c) 2025 Related Code
+Copyright (c) 2026 Related Code
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
