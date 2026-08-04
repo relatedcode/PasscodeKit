@@ -21,6 +21,7 @@ import CryptoKit
 
 	@objc optional func passcodeCheckedButDisabled()
 	@objc optional func passcodeEnteredSuccessfully()
+	@objc optional func passcodeClearedWhileVerifying()
 	@objc optional func passcodeMaximumFailedAttempts()
 }
 
@@ -152,6 +153,19 @@ extension PasscodeKit {
 		}
 		return viewController
 	}
+
+	private func dismissVerifyIfNeeded() {
+		DispatchQueue.main.async {
+			if let navigationController = self.topViewController() as? UINavigationController {
+				if let presentedView = navigationController.viewControllers.first {
+					if (presentedView is PasscodeKitVerify) {
+						PasscodeKit.delegate?.passcodeClearedWhileVerifying?()
+						presentedView.dismiss(animated: true)
+					}
+				}
+			}
+		}
+	}
 }
 
 // MARK: -
@@ -213,12 +227,14 @@ extension PasscodeKit {
 		} else {
 			UserDefaults.standard.removeObject(forKey: "PasscodeValue")
 			UserDefaults.standard.removeObject(forKey: "PasscodeBiometric")
+			shared.dismissVerifyIfNeeded()
 		}
 	}
 
 	public class func remove() {
 		UserDefaults.standard.removeObject(forKey: "PasscodeValue")
 		UserDefaults.standard.removeObject(forKey: "PasscodeBiometric")
+		shared.dismissVerifyIfNeeded()
 	}
 
 	public class func biometric() -> Bool {

@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.0.7](https://github.com/relatedcode/PasscodeKit/releases/tag/1.0.7)
+
+Released on 2026-08-04.
+
+#### Added
+
+- Added `passcodeClearedWhileVerifying` delegate when the passcode is cleared while the verify screen is presented.
+
+#### Fixed
+
+- Dismiss the verify screen when `remove()` or `update("")` clears the passcode.
+
 ## [1.0.6](https://github.com/relatedcode/PasscodeKit/releases/tag/1.0.6)
 
 Released on 2026-08-02.

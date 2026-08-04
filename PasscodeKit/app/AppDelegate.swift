@@ -43,6 +43,10 @@ extension AppDelegate: PasscodeKitDelegate {
 		print(#function)
 	}
 
+	func passcodeClearedWhileVerifying() {
+		print(#function)
+	}
+
 	func passcodeMaximumFailedAttempts() {
 		print(#function)
 	}

@@ -10,7 +10,7 @@ PasscodeKit is a lightweight and easy-to-use, in-app Passcode implementation for
 
 ### Swift Package Manager
 
-[Swift Package Manager](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/) is a tool for managing Swift code distribution.
+[Swift Package Manager](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs) is a tool for managing Swift code distribution.
 
 To add **PasscodeKit** as a dependency to your project, follow these steps:
 
@@ -41,6 +41,8 @@ The following `PasscodeKitDelegate` methods can be used to take actions related 
 func passcodeCheckedButDisabled()
 
 func passcodeEnteredSuccessfully()
+
+func passcodeClearedWhileVerifying()
 
 func passcodeMaximumFailedAttempts()
 ```
