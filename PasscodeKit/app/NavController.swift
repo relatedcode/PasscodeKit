@@ -11,7 +11,7 @@
 
 import UIKit
 
-class NavigationController: UINavigationController {
+final class NavigationController: UINavigationController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -30,8 +30,9 @@ class NavigationController: UINavigationController {
 			appearance.configureWithOpaqueBackground()
 			appearance.backgroundColor = .systemOrange
 			appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-			UINavigationBar.appearance().standardAppearance = appearance
-			UINavigationBar.appearance().scrollEdgeAppearance = appearance
+			navigationBar.standardAppearance = appearance
+			navigationBar.scrollEdgeAppearance = appearance
+			navigationBar.compactAppearance = appearance
 		}
 	}
 

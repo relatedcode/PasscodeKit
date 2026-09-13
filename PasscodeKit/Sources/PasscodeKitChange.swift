@@ -11,56 +11,29 @@
 
 import UIKit
 
-// MARK: - PasscodeState
-private enum PasscodeState {
-
-	case change1
-	case change2
-	case change3
-	case complete
-}
-
 // MARK: - PasscodeKitChange
-class PasscodeKitChange: UIViewController {
+class PasscodeKitChange: PasscodeKitEntry {
 
-	private var state: PasscodeState!
+	private enum State {
+		case verifyCurrentPasscode
+		case enterNewPasscode
+		case confirmNewPasscode
+	}
+
+	private var state: State = .verifyCurrentPasscode
 	private var passcode = ""
 
-	private var failedAttempts = 0
 	private var isPasscodeMismatch = false
-
-	private var viewPasscode = UIView()
-	private var textPasscode: PasscodeKitText!
-	private var labelInfo = UILabel()
-	private var labelPasscodeMismatch = UILabel()
-	private var labelFailedAttempts = UILabel()
-	private var keypad = PasscodeKitKeypad()
-
-	var delegate: PasscodeKitDelegate?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		title = PasscodeKit.titleChangePasscode
 
-		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(actionCancel))
+		setupCancelButton()
 
 		setupUI()
 		updateUI()
-	}
-
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-		keypad.layoutContentView(viewPasscode, in: view)
-		let width = viewPasscode.bounds.width
-		labelInfo.frame.size.width = width
-		textPasscode.frame.size.width = width
-		labelPasscodeMismatch.frame.size.width = width
-		labelFailedAttempts.frame.origin.x = (width - labelFailedAttempts.frame.width) / 2
-	}
-
-	@objc private func actionCancel() {
-		dismiss(animated: true)
 	}
 }
 
@@ -68,99 +41,27 @@ class PasscodeKitChange: UIViewController {
 extension PasscodeKitChange {
 
 	private func setupUI() {
-		state = .change1
-
-		view.backgroundColor = PasscodeKit.backgroundColor
-
-		viewPasscode.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120)
-		view.addSubview(viewPasscode)
-
-		labelInfo.textAlignment = .center
-		labelInfo.textColor = PasscodeKit.textColor
-		labelInfo.font = UIFont.systemFont(ofSize: 17)
-		labelInfo.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 30)
-		viewPasscode.addSubview(labelInfo)
-
-		if (textPasscode != nil) && (textPasscode.superview != nil) {
-			textPasscode.removeFromSuperview()
-		}
-		textPasscode = PasscodeKitText()
-		textPasscode.frame = CGRect(x: 0, y: 45, width: UIScreen.main.bounds.width, height: 30)
-		viewPasscode.addSubview(textPasscode)
-
-		labelPasscodeMismatch.text = PasscodeKit.textPasscodeMismatch
-		labelPasscodeMismatch.textAlignment = .center
-		labelPasscodeMismatch.textColor = PasscodeKit.textColor
-		labelPasscodeMismatch.font = UIFont.systemFont(ofSize: 15)
-		labelPasscodeMismatch.frame = CGRect(x: 0, y: 90, width: UIScreen.main.bounds.width, height: 30)
-		labelPasscodeMismatch.isHidden = true
-		viewPasscode.addSubview(labelPasscodeMismatch)
-
-		labelFailedAttempts.textAlignment = .center
-		labelFailedAttempts.textColor = PasscodeKit.failedTextColor
-		labelFailedAttempts.backgroundColor = PasscodeKit.failedBackgroundColor
-		labelFailedAttempts.font = UIFont.systemFont(ofSize: 15)
-		labelFailedAttempts.frame = CGRect(x: (UIScreen.main.bounds.width - 225) / 2, y: 90, width: 225, height: 30)
-		labelFailedAttempts.layer.cornerRadius = 15
-		labelFailedAttempts.isHidden = true
-		labelFailedAttempts.clipsToBounds = true
-		viewPasscode.addSubview(labelFailedAttempts)
-
-		keypad.pinToBottom(of: view)
-		keypad.attach(to: textPasscode) { [weak self] current in
+		setupPasscodeUI { [weak self] current in
 			self?.actionPasscode(current)
 		}
 	}
 
 	private func updateUI() {
-		if (state == .change1) { labelInfo.text = PasscodeKit.textEnterOldPasscode	}
-		if (state == .change2) { labelInfo.text = PasscodeKit.textEnterNewPasscode	}
-		if (state == .change3) { labelInfo.text = PasscodeKit.textVerifyNewPasscode	}
+		let prompt: String
+		switch state {
+		case .verifyCurrentPasscode:
+			prompt = PasscodeKit.textEnterOldPasscode
+		case .enterNewPasscode:
+			prompt = PasscodeKit.textEnterNewPasscode
+		case .confirmNewPasscode:
+			prompt = PasscodeKit.textVerifyNewPasscode
+		}
 
-		if (state == .change3) {
+		if (state == .confirmNewPasscode) {
 			isPasscodeMismatch = false
 		}
 
-		failedAttempts = 0
-		textPasscode.text = ""
-		textPasscode.setNeedsLayout()
-		labelPasscodeMismatch.isHidden = !isPasscodeMismatch
-		labelFailedAttempts.isHidden = true
-		animateViewPasscode()
-	}
-
-	private func animateViewPasscode() {
-		let originalXPos = viewPasscode.frame.origin.x
-		viewPasscode.frame.origin.x = originalXPos + (isPasscodeMismatch ? -250 : 250)
-		UIView.animate(withDuration: 0.15) {
-			self.viewPasscode.frame.origin.x = originalXPos
-		}
-	}
-
-	private func setupUIFailed() {
-		PasscodeKit.hapticDecline()
-
-		let animation = CABasicAnimation(keyPath: "position")
-		animation.duration = 0.09
-		animation.repeatCount = 2
-		animation.isRemovedOnCompletion = true
-		animation.autoreverses = true
-		animation.fromValue = CGPoint(x: textPasscode.center.x - 10, y: textPasscode.center.y)
-		animation.toValue = CGPoint(x: textPasscode.center.x + 10, y: textPasscode.center.y)
-		textPasscode.layer.add(animation, forKey: "position")
-
-		failedAttempts += 1
-		labelFailedAttempts.isHidden = false
-		labelFailedAttempts.text = String(format: PasscodeKit.textFailedPasscode, failedAttempts)
-
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-			self.textPasscode.text = ""
-			self.textPasscode.setNeedsLayout()
-		}
-
-		if (failedAttempts >= PasscodeKit.allowedFailedAttempts) {
-			delegate?.passcodeMaximumFailedAttempts?()
-		}
+		transitionPasscodeUI(prompt: prompt, isMismatch: isPasscodeMismatch)
 	}
 }
 
@@ -168,27 +69,24 @@ extension PasscodeKitChange {
 extension PasscodeKitChange {
 
 	private func actionPasscode(_ current: String) {
-		if (state == .change1) {
+		if (state == .verifyCurrentPasscode) {
 			actionVerify(current)
-		} else if (state == .change2) {
+		} else if (state == .enterNewPasscode) {
 			actionChange(current)
-		} else if (state == .change3) {
+		} else if (state == .confirmNewPasscode) {
 			actionConfirm(current)
 		}
 	}
 
 	private func actionVerify(_ current: String) {
-		if (PasscodeKit.verify(current)) {
-			PasscodeKit.hapticAccept()
-			state = .change2
+		verifyStoredPasscode(current) {
+			state = .enterNewPasscode
 			updateUI()
-		} else {
-			setupUIFailed()
 		}
 	}
 
 	private func actionChange(_ current: String) {
-		state = .change3
+		state = .confirmNewPasscode
 		passcode = current
 		updateUI()
 	}
@@ -202,7 +100,7 @@ extension PasscodeKitChange {
 		} else {
 			PasscodeKit.hapticDecline()
 			isPasscodeMismatch = true
-			state = .change2
+			state = .enterNewPasscode
 			updateUI()
 		}
 	}

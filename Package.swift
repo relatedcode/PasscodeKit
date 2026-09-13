@@ -16,8 +16,12 @@ let package = Package(
         .target(
             name: "PasscodeKit",
             dependencies: [],
-            path: "./PasscodeKit",
-            sources: ["Sources"]
+            path: "PasscodeKit/Sources"
+        ),
+        .testTarget(
+            name: "PasscodeKitTests",
+            dependencies: ["PasscodeKit"],
+            path: "Tests"
         ),
     ]
 )

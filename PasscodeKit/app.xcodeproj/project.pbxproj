@@ -13,15 +13,9 @@
 		29D29EF91D9A59E4006CA074 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D29EF81D9A59E4006CA074 /* AppDelegate.swift */; };
 		29D29F011D9A59E4006CA074 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D29F001D9A59E4006CA074 /* Assets.xcassets */; };
 		29D29F041D9A59E4006CA074 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D29F021D9A59E4006CA074 /* LaunchScreen.storyboard */; };
-		29D97807261DB37700C80DBD /* PasscodeKitText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D97801261DB37700C80DBD /* PasscodeKitText.swift */; };
-		29D97808261DB37700C80DBD /* PasscodeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D97802261DB37700C80DBD /* PasscodeKit.swift */; };
-		29D97809261DB37700C80DBD /* PasscodeKitVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D97803261DB37700C80DBD /* PasscodeKitVerify.swift */; };
-		29D9780A261DB37700C80DBD /* PasscodeKitCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D97804261DB37700C80DBD /* PasscodeKitCreate.swift */; };
-		29D9780B261DB37700C80DBD /* PasscodeKitChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D97805261DB37700C80DBD /* PasscodeKitChange.swift */; };
-		29D9780C261DB37700C80DBD /* PasscodeKitRemove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D97806261DB37700C80DBD /* PasscodeKitRemove.swift */; };
 		29D97810261DB39C00C80DBD /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D9780E261DB39C00C80DBD /* PasscodeView.swift */; };
 		29D97811261DB39C00C80DBD /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29D9780F261DB39C00C80DBD /* PasscodeView.xib */; };
-		29D97815261DB37700C80DBD /* PasscodeKitKeypad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D97814261DB37700C80DBD /* PasscodeKitKeypad.swift */; };
+		29D9781A261DB37700C80DBD /* PasscodeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 29D9781C261DB37700C80DBD /* PasscodeKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,15 +27,8 @@
 		29D29F001D9A59E4006CA074 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		29D29F031D9A59E4006CA074 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		29D29F051D9A59E4006CA074 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		29D97801261DB37700C80DBD /* PasscodeKitText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeKitText.swift; sourceTree = "<group>"; };
-		29D97802261DB37700C80DBD /* PasscodeKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeKit.swift; sourceTree = "<group>"; };
-		29D97803261DB37700C80DBD /* PasscodeKitVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeKitVerify.swift; sourceTree = "<group>"; };
-		29D97804261DB37700C80DBD /* PasscodeKitCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeKitCreate.swift; sourceTree = "<group>"; };
-		29D97805261DB37700C80DBD /* PasscodeKitChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeKitChange.swift; sourceTree = "<group>"; };
-		29D97806261DB37700C80DBD /* PasscodeKitRemove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeKitRemove.swift; sourceTree = "<group>"; };
 		29D9780E261DB39C00C80DBD /* PasscodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeView.swift; sourceTree = "<group>"; };
 		29D9780F261DB39C00C80DBD /* PasscodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasscodeView.xib; sourceTree = "<group>"; };
-		29D97814261DB37700C80DBD /* PasscodeKitKeypad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeKitKeypad.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,31 +36,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29D9781A261DB37700C80DBD /* PasscodeKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		299876D9248FCB290025E297 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				29D97802261DB37700C80DBD /* PasscodeKit.swift */,
-				29D97805261DB37700C80DBD /* PasscodeKitChange.swift */,
-				29D97804261DB37700C80DBD /* PasscodeKitCreate.swift */,
-				29D97814261DB37700C80DBD /* PasscodeKitKeypad.swift */,
-				29D97806261DB37700C80DBD /* PasscodeKitRemove.swift */,
-				29D97801261DB37700C80DBD /* PasscodeKitText.swift */,
-				29D97803261DB37700C80DBD /* PasscodeKitVerify.swift */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
 		29D29EE81D9A59E4006CA074 = {
 			isa = PBXGroup;
 			children = (
 				29D29EF31D9A59E4006CA074 /* app */,
-				299876D9248FCB290025E297 /* Sources */,
 				29D29EF21D9A59E4006CA074 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,6 +91,9 @@
 			dependencies = (
 			);
 			name = app;
+			packageProductDependencies = (
+				29D9781C261DB37700C80DBD /* PasscodeKit */,
+			);
 			productName = app;
 			productReference = 29D29EF11D9A59E4006CA074 /* app.app */;
 			productType = "com.apple.product-type.application";
@@ -159,6 +135,9 @@
 				Base,
 			);
 			mainGroup = 29D29EE81D9A59E4006CA074;
+			packageReferences = (
+				29D9781B261DB37700C80DBD /* XCLocalSwiftPackageReference ".." */,
+			);
 			productRefGroup = 29D29EF21D9A59E4006CA074 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -187,16 +166,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29D97809261DB37700C80DBD /* PasscodeKitVerify.swift in Sources */,
 				295B8483248C1C5B003E8AE6 /* ViewController.swift in Sources */,
-				29D9780C261DB37700C80DBD /* PasscodeKitRemove.swift in Sources */,
-				29D97807261DB37700C80DBD /* PasscodeKitText.swift in Sources */,
-				29D9780B261DB37700C80DBD /* PasscodeKitChange.swift in Sources */,
 				296568FA2AC9885E00FFEA60 /* NavController.swift in Sources */,
-				29D97808261DB37700C80DBD /* PasscodeKit.swift in Sources */,
-				29D97815261DB37700C80DBD /* PasscodeKitKeypad.swift in Sources */,
 				29D97810261DB39C00C80DBD /* PasscodeView.swift in Sources */,
-				29D9780A261DB37700C80DBD /* PasscodeKitCreate.swift in Sources */,
 				29D29EF91D9A59E4006CA074 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,7 +239,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -322,7 +294,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -349,7 +321,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.passcodekit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -382,7 +354,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.passcodekit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -419,6 +391,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		29D9781B261DB37700C80DBD /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		29D9781C261DB37700C80DBD /* PasscodeKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29D9781B261DB37700C80DBD /* XCLocalSwiftPackageReference ".." */;
+			productName = PasscodeKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 29D29EE91D9A59E4006CA074 /* Project object */;
 }

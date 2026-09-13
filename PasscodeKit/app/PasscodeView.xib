@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PasscodeView">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PasscodeView" customModule="app" customModuleProvider="target">
             <connections>
                 <outlet property="cellBiometric" destination="3rd-tQ-elY" id="j9O-HW-ppz"/>
                 <outlet property="cellChangePasscode" destination="2Tc-5l-EBC" id="eX0-Ga-8FT"/>
@@ -84,9 +84,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Biometric" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bf0-xB-0pP">
+                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Biometric" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bf0-xB-0pP">
                         <rect key="frame" x="15" y="0.0" width="200" height="50"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -100,6 +99,9 @@
                     </switch>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="bf0-xB-0pP" firstAttribute="centerY" secondItem="5db-cT-D6u" secondAttribute="centerY" id="CQe-YF-BiM"/>
+                    <constraint firstItem="bf0-xB-0pP" firstAttribute="leading" secondItem="5db-cT-D6u" secondAttribute="leadingMargin" id="FAM-kx-mvC"/>
+                    <constraint firstItem="GfW-am-9uq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bf0-xB-0pP" secondAttribute="trailing" constant="8" id="WTF-dn-0gu"/>
                     <constraint firstItem="GfW-am-9uq" firstAttribute="centerY" secondItem="5db-cT-D6u" secondAttribute="centerY" id="Yb3-k7-Oks"/>
                     <constraint firstAttribute="trailingMargin" secondItem="GfW-am-9uq" secondAttribute="trailing" constant="9" id="qEZ-aA-mNH"/>
                 </constraints>

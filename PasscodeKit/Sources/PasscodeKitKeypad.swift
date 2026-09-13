@@ -14,8 +14,8 @@ import UIKit
 // MARK: - PasscodeKitKeypad
 class PasscodeKitKeypad: UIView {
 
-	var digitHandler: ((String) -> Void)?
-	var deleteHandler: (() -> Void)?
+	private var digitHandler: ((String) -> Void)?
+	private var deleteHandler: (() -> Void)?
 
 	private let buttonSize: CGFloat = 70
 	private let rowSpacing: CGFloat = 12
@@ -27,7 +27,6 @@ class PasscodeKitKeypad: UIView {
 	]
 
 	private var isCompleting = false
-	private var buttons: [UIButton] = []
 	private let impactFeedback = UIImpactFeedbackGenerator(style: .light)
 
 	var preferredHeight: CGFloat {
@@ -219,7 +218,6 @@ extension PasscodeKitKeypad {
 			])
 		}
 
-		buttons.append(button)
 		return container
 	}
 

@@ -10,8 +10,9 @@
 // THE SOFTWARE.
 
 import UIKit
+import PasscodeKit
 
-class PasscodeView: UIViewController {
+final class PasscodeView: UIViewController {
 
 	@IBOutlet private var tableView: UITableView!
 
@@ -38,7 +39,7 @@ class PasscodeView: UIViewController {
 // MARK: - User actions
 extension PasscodeView {
 
-	func actionTurnPasscode() {
+	private func actionTurnPasscode() {
 		if (PasscodeKit.enabled()) {
 			PasscodeKit.removePasscode(self)
 		} else {
@@ -46,13 +47,13 @@ extension PasscodeView {
 		}
 	}
 
-	func actionChangePasscode() {
+	private func actionChangePasscode() {
 		if (PasscodeKit.enabled()) {
 			PasscodeKit.changePasscode(self)
 		}
 	}
 
-	@objc func actionBiometric() {
+	@objc private func actionBiometric() {
 		PasscodeKit.biometric(switchBiometric.isOn)
 	}
 }
@@ -60,7 +61,7 @@ extension PasscodeView {
 // MARK: - Helper methods
 extension PasscodeView {
 
-	func updateViewDetails() {
+	private func updateViewDetails() {
 		if (PasscodeKit.enabled()) {
 			cellTurnPasscode.textLabel?.text = "Turn Passcode Off"
 			cellChangePasscode.textLabel?.textColor = UIColor.systemBlue

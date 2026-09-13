@@ -10,8 +10,9 @@
 // THE SOFTWARE.
 
 import UIKit
+import PasscodeKit
 
-class ViewController: UITableViewController {
+final class ViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -56,7 +57,7 @@ extension ViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 
-		let passcodeView = PasscodeView()
+		let passcodeView = PasscodeView(nibName: "PasscodeView", bundle: nil)
 		navigationController?.pushViewController(passcodeView, animated: true)
 	}
 }

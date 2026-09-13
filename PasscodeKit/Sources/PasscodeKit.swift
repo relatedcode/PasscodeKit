@@ -10,7 +10,6 @@
 // THE SOFTWARE.
 
 import UIKit
-import CryptoKit
 
 // MARK: - PasscodeKitDelegate
 @objc public protocol PasscodeKitDelegate {
@@ -58,17 +57,14 @@ public class PasscodeKit: NSObject {
 
 	public static var delegate: PasscodeKitDelegate?
 
+	private static let store = PasscodeKitStore()
 	private var isStarted = false
 
 	public override init() {
 		super.init()
 
-		if #available(iOS 13.0, *) {
-			PasscodeKit.textColor		= UIColor.label
-			PasscodeKit.backgroundColor	= UIColor.systemGroupedBackground
-		} else {
-			PasscodeKit.backgroundColor	= UIColor.groupTableViewBackground
-		}
+		PasscodeKit.textColor		= UIColor.label
+		PasscodeKit.backgroundColor	= UIColor.systemGroupedBackground
 	}
 
 	public class func start() {
@@ -118,22 +114,15 @@ extension PasscodeKit {
 		DispatchQueue.main.async {
 			let passcodeKitVerify = PasscodeKitVerify()
 			passcodeKitVerify.delegate = PasscodeKit.delegate
-			let navController = PasscodeKitNavController(rootViewController: passcodeKitVerify)
-			viewController.present(navController, animated: false)
+			PasscodeKit.presentFlow(passcodeKitVerify, from: viewController, animated: false)
 		}
 	}
 
 	private func noPasscodePresented(_ viewController: UIViewController) -> Bool {
-		var result = true
-		if let navigationController = viewController as? UINavigationController {
-			if let presentedView = navigationController.viewControllers.first {
-				if (presentedView is PasscodeKitCreate)	{ result = false }
-				if (presentedView is PasscodeKitChange)	{ result = false }
-				if (presentedView is PasscodeKitRemove)	{ result = false }
-				if (presentedView is PasscodeKitVerify)	{ result = false }
-			}
+		guard let navigationController = viewController as? UINavigationController else {
+			return true
 		}
-		return result
+		return !(navigationController.viewControllers.first is PasscodeKitEntry)
 	}
 
 	private func topViewController() -> UIViewController? {
@@ -174,22 +163,24 @@ extension PasscodeKit {
 	public class func createPasscode(_ viewController: UIViewController) {
 		let passcodeKitCreate = PasscodeKitCreate()
 		passcodeKitCreate.delegate = viewController as? PasscodeKitDelegate
-		let navController = PasscodeKitNavController(rootViewController: passcodeKitCreate)
-		viewController.present(navController, animated: true)
+		presentFlow(passcodeKitCreate, from: viewController, animated: true)
 	}
 
 	public class func changePasscode(_ viewController: UIViewController) {
 		let passcodeKitChange = PasscodeKitChange()
 		passcodeKitChange.delegate = viewController as? PasscodeKitDelegate
-		let navController = PasscodeKitNavController(rootViewController: passcodeKitChange)
-		viewController.present(navController, animated: true)
+		presentFlow(passcodeKitChange, from: viewController, animated: true)
 	}
 
 	public class func removePasscode(_ viewController: UIViewController) {
 		let passcodeKitRemove = PasscodeKitRemove()
 		passcodeKitRemove.delegate = viewController as? PasscodeKitDelegate
-		let navController = PasscodeKitNavController(rootViewController: passcodeKitRemove)
-		viewController.present(navController, animated: true)
+		presentFlow(passcodeKitRemove, from: viewController, animated: true)
+	}
+
+	private class func presentFlow(_ passcodeController: PasscodeKitEntry, from viewController: UIViewController, animated: Bool) {
+		let navigationController = PasscodeKitNavController(rootViewController: passcodeController)
+		viewController.present(navigationController, animated: animated)
 	}
 }
 
@@ -211,47 +202,31 @@ extension PasscodeKit {
 extension PasscodeKit {
 
 	public class func enabled() -> Bool {
-		return (UserDefaults.standard.string(forKey: "PasscodeValue") != nil)
+		return store.isEnabled
 	}
 
 	public class func verify(_ passcode: String) -> Bool {
-		if (passcode != "") {
-			return (UserDefaults.standard.string(forKey: "PasscodeValue") == sha256(passcode))
-		}
-		return (UserDefaults.standard.string(forKey: "PasscodeValue") == nil)
+		return store.verify(passcode)
 	}
 
 	public class func update(_ passcode: String) {
-		if (passcode != "") {
-			UserDefaults.standard.set(sha256(passcode), forKey: "PasscodeValue")
-		} else {
-			UserDefaults.standard.removeObject(forKey: "PasscodeValue")
-			UserDefaults.standard.removeObject(forKey: "PasscodeBiometric")
+		store.update(passcode)
+		if (passcode == "") {
 			shared.dismissVerifyIfNeeded()
 		}
 	}
 
 	public class func remove() {
-		UserDefaults.standard.removeObject(forKey: "PasscodeValue")
-		UserDefaults.standard.removeObject(forKey: "PasscodeBiometric")
+		store.remove()
 		shared.dismissVerifyIfNeeded()
 	}
 
 	public class func biometric() -> Bool {
-		return UserDefaults.standard.bool(forKey: "PasscodeBiometric")
+		return store.isBiometricEnabled
 	}
 
 	public class func biometric(_ value: Bool) {
-		UserDefaults.standard.set(value, forKey: "PasscodeBiometric")
-	}
-
-	private class func sha256(_ text: String) -> String {
-		if #available(iOS 13.0, *) {
-			let data = Data(text.utf8)
-			let hash = SHA256.hash(data: data)
-			return hash.compactMap { String(format: "%02x", $0) }.joined()
-		}
-		return text
+		store.isBiometricEnabled = value
 	}
 }
 
@@ -261,10 +236,8 @@ class PasscodeKitNavController: UINavigationController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		if #available(iOS 13.0, *) {
-			self.isModalInPresentation = true
-			self.modalPresentationStyle = .fullScreen
-		}
+		isModalInPresentation = true
+		modalPresentationStyle = .fullScreen
 
 		navigationBar.isTranslucent = false
 		navigationBar.tintColor = .systemBlue

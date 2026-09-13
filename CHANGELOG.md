@@ -1,5 +1,22 @@
 # Change Log
 
+## [1.0.8](https://github.com/relatedcode/PasscodeKit/releases/tag/1.0.8)
+
+Released on 2026-09-13.
+
+#### Changed
+
+- Extracted shared passcode-entry UI and persistence logic into dedicated components.
+- Reduced duplicated setup and verification logic across the create, change, remove, and verify flows.
+- Updated the sample app to use the local Swift package product.
+- Simplified the Swift package layout and aligned the project deployment target with iOS 13.
+- Added package tests for passcode storage, biometric cleanup, and stored hash compatibility.
+
+#### Fixed
+
+- Scoped the sample app navigation bar appearance to its own navigation controller.
+- Improved XIB module configuration and biometric row constraints.
+
 ## [1.0.7](https://github.com/relatedcode/PasscodeKit/releases/tag/1.0.7)
 
 Released on 2026-08-04.
